@@ -7,12 +7,12 @@ import { Button } from '@/components/ui/button';
 type ViewMode = 'menu' | 'amex' | 'landing' | 'terminal';
 
 const Index = () => {
-  const [currentView, setCurrentView] = useState<ViewMode>('menu');
+  const [currentView, setCurrentView] = useState<ViewMode>('amex');
 
   const renderView = () => {
     switch (currentView) {
       case 'amex':
-        return <AmexGlitchPoster />;
+        return <AmexGlitchPoster onNavigate={setCurrentView} />;
       case 'landing':
         return <HackerTerminalLanding onEnter={() => setCurrentView('terminal')} />;
       case 'terminal':
@@ -22,7 +22,7 @@ const Index = () => {
           <div className="min-h-screen bg-black crt-screen flex items-center justify-center p-8">
             <div className="terminal-window max-w-2xl w-full">
               <div className="terminal-header px-4 py-3 text-lg">
-                CYBERPUNK SIMULATION MENU
+                CYBER OPS CONTROL CENTER
               </div>
               <div className="terminal-content p-6 space-y-6">
                 <div className="text-center mb-8">
@@ -30,7 +30,7 @@ const Index = () => {
                     CYBER OPS
                   </h1>
                   <p className="text-terminal-green/70">
-                    Select your simulation experience
+                    Select your operation mode
                   </p>
                 </div>
                 
@@ -58,7 +58,7 @@ const Index = () => {
                 </div>
                 
                 <div className="text-center text-xs text-terminal-green/50 mt-8">
-                  ⚠️ All simulations are fictional and for entertainment only ⚠️
+                  🔒 Secure Access Terminal
                 </div>
               </div>
             </div>

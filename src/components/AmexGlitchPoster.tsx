@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { Button } from '@/components/ui/button';
 import amexPoster from '@/assets/amex-glitch-poster.webp';
 
-const AmexGlitchPoster = () => {
+const AmexGlitchPoster = ({ onNavigate }: { onNavigate: (view: 'landing' | 'terminal' | 'menu') => void }) => {
   const [binaryLines, setBinaryLines] = useState<string[]>([]);
   const [typedText, setTypedText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showNavigation, setShowNavigation] = useState(false);
   const targetText = 'AMEX';
 
   useEffect(() => {
@@ -30,6 +32,12 @@ const AmexGlitchPoster = () => {
         setTypedText(targetText.slice(0, currentIndex + 1));
         setCurrentIndex(currentIndex + 1);
       }, 800);
+      return () => clearTimeout(timeout);
+    } else {
+      // Show navigation after completing text and waiting 15 seconds
+      const timeout = setTimeout(() => {
+        setShowNavigation(true);
+      }, 15000);
       return () => clearTimeout(timeout);
     }
   }, [currentIndex, targetText]);
@@ -85,6 +93,30 @@ const AmexGlitchPoster = () => {
           <div>???????????????????????????</div>
         </div>
       </div>
+
+      {/* Navigation buttons after 15 seconds */}
+      {showNavigation && (
+        <div className="absolute bottom-16 right-8 space-y-3 animate-fade-in">
+          <Button
+            onClick={() => onNavigate('landing')}
+            className="neon-button block w-48"
+          >
+            ENTER TERMINAL
+          </Button>
+          <Button
+            onClick={() => onNavigate('terminal')}
+            className="neon-button block w-48"
+          >
+            DIRECT ACCESS
+          </Button>
+          <Button
+            onClick={() => onNavigate('menu')}
+            className="neon-button block w-48"
+          >
+            MAIN MENU
+          </Button>
+        </div>
+      )}
 
       {/* Scan line effect */}
       <div className="scan-line absolute inset-0 pointer-events-none" />

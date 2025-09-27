@@ -170,12 +170,12 @@ const HackerTerminalLanding = ({ onEnter }: { onEnter: () => void }) => {
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
           <div className="terminal-window p-6 max-w-md mx-4">
             <div className="terminal-header px-3 py-2 text-sm mb-4">
-              Accept Risk & Terms
+              Accept Access & Terms
             </div>
             <div className="terminal-content p-4 space-y-4">
               <p className="text-terminal-green text-sm">
-                This is a simulation for educational purposes only. 
-                By proceeding, you acknowledge this is fictional content.
+                By proceeding, you acknowledge access to this system. 
+                Continue with network access protocols.
               </p>
               <div className="flex items-center space-x-2">
                 <input 
@@ -184,7 +184,7 @@ const HackerTerminalLanding = ({ onEnter }: { onEnter: () => void }) => {
                   className="w-4 h-4 accent-terminal-green"
                 />
                 <label htmlFor="accept" className="text-xs">
-                  I understand this is a simulation
+                  I understand the access requirements
                 </label>
               </div>
               <div className="flex space-x-4">

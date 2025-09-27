@@ -36,8 +36,8 @@ const MainTerminalApp = ({ onBack }: { onBack: () => void }) => {
     const statusMessages = [
       'ATTEMPTING CONNECTION...',
       'ESTABLISHING LINK...',
-      'SIMULATION: VISUAL LINK ACTIVE',
-      'SIMULATION: DATA STREAMING',
+      'VISUAL LINK ACTIVE',
+      'DATA STREAMING',
       'CONNECTION TIMEOUT',
       'RETRYING CONNECTION...',
     ];
@@ -129,8 +129,8 @@ const MainTerminalApp = ({ onBack }: { onBack: () => void }) => {
           {/* Device Intercept */}
           <div className="terminal-window">
             <div className="terminal-header px-3 py-2 text-sm flex justify-between">
-              <span>SIMULATED DEVICE</span>
-              <span className="text-xs text-yellow-400">FOR STORY ONLY</span>
+              <span>DEVICE INTERFACE</span>
+              <span className="text-xs text-yellow-400">LIVE</span>
             </div>
             <div className="terminal-content p-3">
               <div className="flex items-center justify-center h-32 border border-terminal-green/30 mb-4">
@@ -138,8 +138,8 @@ const MainTerminalApp = ({ onBack }: { onBack: () => void }) => {
                   <div className="w-16 h-16 border-2 border-terminal-green mx-auto mb-2 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">📱</span>
                   </div>
-                  <div className="text-xs">{deviceStatus}</div>
-                  {deviceStatus.includes('SIMULATION') && (
+                  <div className="text-xs">{deviceStatus.replace('SIMULATION: ', '')}</div>
+                  {deviceStatus.includes('VISUAL LINK') && (
                     <div className="w-4 h-4 border-2 border-terminal-green border-t-transparent rounded-full animate-spin mx-auto mt-2"></div>
                   )}
                 </div>
@@ -148,7 +148,7 @@ const MainTerminalApp = ({ onBack }: { onBack: () => void }) => {
                 onClick={() => setShowDeviceModal(true)}
                 className="neon-button w-full text-xs"
               >
-                VIEW SIMULATION DETAILS
+                VIEW INTERFACE DETAILS
               </Button>
             </div>
           </div>
@@ -156,7 +156,7 @@ const MainTerminalApp = ({ onBack }: { onBack: () => void }) => {
           {/* Tools */}
           <div className="terminal-window flex-1">
             <div className="terminal-header px-3 py-2 text-sm">
-              Hacking Tools
+              Hacker Tools
             </div>
             <div className="terminal-content p-3 space-y-2">
               <Button className="neon-button w-full text-xs justify-start">Dictionary Cracker</Button>
@@ -237,24 +237,24 @@ const MainTerminalApp = ({ onBack }: { onBack: () => void }) => {
         <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50">
           <div className="terminal-window max-w-lg mx-4">
             <div className="terminal-header px-3 py-2 text-sm">
-              SIMULATION DISCLAIMER
+              INTERFACE DETAILS
             </div>
             <div className="terminal-content p-4 space-y-4">
               <div className="text-center text-yellow-400 font-bold">
-                ⚠️ EDUCATIONAL SIMULATION ONLY ⚠️
+                📡 DEVICE INTERFACE ACTIVE
               </div>
               <p className="text-xs">
-                This application is a fictional simulation created for entertainment and educational purposes only. 
-                No real hacking, device interception, or unauthorized access is taking place.
+                Current interface session is monitoring device connections and network traffic. 
+                All displayed data represents live system information and active connections.
               </p>
               <p className="text-xs">
-                All displayed data, connections, and activities are simulated and not connected to any real systems.
+                Interface protocols are functioning normally. Data streams are encrypted and secure.
               </p>
               <Button 
                 onClick={() => setShowDeviceModal(false)}
                 className="neon-button w-full"
               >
-                UNDERSTOOD
+                CLOSE
               </Button>
             </div>
           </div>
