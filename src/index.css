@@ -2,41 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Cyberpunk Hacker Theme Design System */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    /* Core cyberpunk color palette */
+    --background: 0 0% 0%;
+    --foreground: 320 100% 85%;
+    
+    /* Cyberpunk neon colors */
+    --cyber-magenta: 320 100% 70%;
+    --cyber-pink: 340 100% 75%;
+    --cyber-green: 120 100% 50%;
+    --cyber-blue: 200 100% 60%;
+    --cyber-purple: 280 100% 70%;
+    
+    /* Terminal green theme */
+    --terminal-green: 120 100% 50%;
+    --terminal-green-glow: 120 100% 70%;
+    --terminal-dark: 120 30% 10%;
+    
+    /* Glass/CRT effects */
+    --glass-bg: 0 0% 0% / 0.8;
+    --crt-glow: 320 100% 70% / 0.3;
+    --scanline: 0 0% 100% / 0.1;
+    
+    /* Component colors */
+    --card: 0 0% 5%;
+    --card-foreground: 320 100% 85%;
+    
+    --primary: 320 100% 70%;
+    --primary-foreground: 0 0% 0%;
+    
+    --secondary: 120 100% 50%;
+    --secondary-foreground: 0 0% 0%;
+    
+    --accent: 340 100% 75%;
+    --accent-foreground: 0 0% 0%;
+    
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+    
+    --border: 320 100% 70% / 0.2;
+    --input: 0 0% 10%;
+    --ring: 320 100% 70%;
+    
+    --radius: 0.25rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +112,185 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-mono;
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  /* CRT Screen Effects */
+  .crt-screen {
+    position: relative;
+    background: hsl(var(--background));
+    overflow: hidden;
+  }
+  
+  .crt-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+      linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    z-index: 50;
+  }
+  
+  .crt-screen::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+    pointer-events: none;
+    z-index: 51;
+  }
+
+  /* Glitch Text Effects */
+  .glitch-text {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    color: hsl(var(--cyber-magenta));
+    text-shadow: 
+      0 0 5px hsl(var(--cyber-magenta)),
+      0 0 10px hsl(var(--cyber-magenta)),
+      0 0 20px hsl(var(--cyber-magenta));
+    animation: glitch 2s infinite;
+  }
+  
+  @keyframes glitch {
+    0%, 94%, 100% {
+      transform: translate(0);
+    }
+    96% {
+      transform: translate(-2px, 2px);
+    }
+    98% {
+      transform: translate(2px, -2px);
+    }
+  }
+
+  /* Seven Segment Display */
+  .seven-segment {
+    font-family: 'Orbitron', monospace;
+    font-weight: 900;
+    color: hsl(var(--cyber-magenta));
+    text-shadow: 
+      0 0 5px hsl(var(--cyber-magenta)),
+      0 0 15px hsl(var(--cyber-magenta)),
+      0 0 25px hsl(var(--cyber-magenta)),
+      2px 0 0 hsl(var(--cyber-pink)),
+      -2px 0 0 hsl(var(--cyber-blue));
+    filter: brightness(1.2);
+  }
+
+  /* Terminal Window */
+  .terminal-window {
+    background: hsl(var(--terminal-dark));
+    border: 1px solid hsl(var(--terminal-green));
+    box-shadow: 
+      0 0 10px hsl(var(--terminal-green) / 0.3),
+      inset 0 0 10px hsl(var(--terminal-green) / 0.1);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  .terminal-header {
+    background: hsl(var(--terminal-green) / 0.2);
+    border-bottom: 1px solid hsl(var(--terminal-green));
+    color: hsl(var(--terminal-green));
+    font-weight: 700;
+  }
+  
+  .terminal-content {
+    color: hsl(var(--terminal-green));
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  /* Neon Button */
+  .neon-button {
+    background: transparent;
+    border: 2px solid hsl(var(--terminal-green));
+    color: hsl(var(--terminal-green));
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 
+      0 0 10px hsl(var(--terminal-green) / 0.5),
+      inset 0 0 10px hsl(var(--terminal-green) / 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .neon-button:hover {
+    background: hsl(var(--terminal-green) / 0.1);
+    box-shadow: 
+      0 0 20px hsl(var(--terminal-green) / 0.8),
+      inset 0 0 20px hsl(var(--terminal-green) / 0.2);
+    transform: scale(1.05);
+  }
+
+  /* Typing Animation */
+  .typing::after {
+    content: '|';
+    animation: blink 1s infinite;
+  }
+  
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  /* Scan Line Animation */
+  .scan-line {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .scan-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, hsl(var(--terminal-green)), transparent);
+    animation: scan 3s infinite;
+  }
+  
+  @keyframes scan {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  /* Floating Binary */
+  .binary-float {
+    position: absolute;
+    color: hsl(var(--cyber-magenta) / 0.3);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    animation: float-up 8s infinite linear;
+  }
+  
+  @keyframes float-up {
+    0% {
+      transform: translateY(100vh);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-100px);
+      opacity: 0;
+    }
   }
 }

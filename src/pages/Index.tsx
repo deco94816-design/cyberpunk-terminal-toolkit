@@ -1,13 +1,86 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import AmexGlitchPoster from '@/components/AmexGlitchPoster';
+import HackerTerminalLanding from '@/components/HackerTerminalLanding';
+import MainTerminalApp from '@/components/MainTerminalApp';
+import { Button } from '@/components/ui/button';
+
+type ViewMode = 'menu' | 'amex' | 'landing' | 'terminal';
 
 const Index = () => {
+  const [currentView, setCurrentView] = useState<ViewMode>('menu');
+
+  const renderView = () => {
+    switch (currentView) {
+      case 'amex':
+        return <AmexGlitchPoster />;
+      case 'landing':
+        return <HackerTerminalLanding onEnter={() => setCurrentView('terminal')} />;
+      case 'terminal':
+        return <MainTerminalApp onBack={() => setCurrentView('menu')} />;
+      default:
+        return (
+          <div className="min-h-screen bg-black crt-screen flex items-center justify-center p-8">
+            <div className="terminal-window max-w-2xl w-full">
+              <div className="terminal-header px-4 py-3 text-lg">
+                CYBERPUNK SIMULATION MENU
+              </div>
+              <div className="terminal-content p-6 space-y-6">
+                <div className="text-center mb-8">
+                  <h1 className="text-4xl font-bold text-terminal-green mb-2">
+                    CYBER OPS
+                  </h1>
+                  <p className="text-terminal-green/70">
+                    Select your simulation experience
+                  </p>
+                </div>
+                
+                <div className="space-y-4">
+                  <Button
+                    onClick={() => setCurrentView('amex')}
+                    className="neon-button w-full py-4 text-lg"
+                  >
+                    01 — AMEX GLITCH POSTER
+                  </Button>
+                  
+                  <Button
+                    onClick={() => setCurrentView('landing')}
+                    className="neon-button w-full py-4 text-lg"
+                  >
+                    02 — HACKER TERMINAL ENTRY
+                  </Button>
+                  
+                  <Button
+                    onClick={() => setCurrentView('terminal')}
+                    className="neon-button w-full py-4 text-lg"
+                  >
+                    03 — MAIN TERMINAL APP
+                  </Button>
+                </div>
+                
+                <div className="text-center text-xs text-terminal-green/50 mt-8">
+                  ⚠️ All simulations are fictional and for entertainment only ⚠️
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <>
+      {renderView()}
+      
+      {/* Back to menu button - only show when not in menu */}
+      {currentView !== 'menu' && (
+        <Button
+          onClick={() => setCurrentView('menu')}
+          className="fixed top-4 left-4 z-50 neon-button text-xs"
+        >
+          ← MENU
+        </Button>
+      )}
+    </>
   );
 };
 

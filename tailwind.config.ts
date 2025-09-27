@@ -19,6 +19,22 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        
+        // Cyberpunk color system
+        cyber: {
+          magenta: "hsl(var(--cyber-magenta))",
+          pink: "hsl(var(--cyber-pink))",
+          green: "hsl(var(--cyber-green))",
+          blue: "hsl(var(--cyber-blue))",
+          purple: "hsl(var(--cyber-purple))",
+        },
+        
+        terminal: {
+          green: "hsl(var(--terminal-green))",
+          glow: "hsl(var(--terminal-green-glow))",
+          dark: "hsl(var(--terminal-dark))",
+        },
+        
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
